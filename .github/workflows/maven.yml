@@ -46,7 +46,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build . --file Dockerfile --tag myapp:${{ env.NEW_VERSION }} --build-arg JAR_FILE=target/*.jar
+        docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }} --build-arg JAR_FILE=target/*.jar
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
