@@ -1,6 +1,6 @@
 # Use your base image
 FROM openjdk:8-jdk-alpine
-COPY d2121/myapp-1.0.1.jar /myapp.jar
+COPY myapp-1.0.1.jar /myapp.jar
 CMD ["java", "-cp", "/myapp.jar", "com.myapp.App"]
 
 
