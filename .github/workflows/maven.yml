@@ -57,8 +57,12 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
 
+    - name: List Docker images
+      run: docker images
+
+
     - name: Run Docker image
-      run: docker run --user 1000:1000 --rm myapp:${{ env.NEW_VERSION }}
+      run: docker run --user 1000:1000 --rm ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
