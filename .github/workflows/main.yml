@@ -61,6 +61,21 @@ jobs:
     - name: Run Docker image
       run: docker run  --rm ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }} || true
 
+    # Add Helm deployment steps below
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: 'v3.2.1'
+
+    - name: Install Helm chart
+      run: |
+        helm upgrade --install myapp-release ./chart/myapp \
+          --namespace myapp-namespace \
+          --create-namespace \
+          --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp \
+          --set image.tag=${{ env.NEW_VERSION }}
+
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
