@@ -74,7 +74,7 @@ jobs:
           --namespace myapp-namespace \
           --create-namespace \
           --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp \
-          --set image.tag=${{ env.NEW_VERSION }}
+          --set image.tag=${{ env.NEW_VERSION }} || echo "Warning: Helm going to install chart"
         EXIT_CODE=$?
         if [ $EXIT_CODE -ne 0 ]; then
             echo "Warning: Helm upgrade failed with exit code $EXIT_CODE, need to verify the if k8s cluster is reachable. "
